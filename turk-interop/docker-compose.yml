@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./backend/api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - JWT_SECRET=turk-interop-jwt-secret
+      - INTERNAL_API_KEY=turk-interop-secret-key
+      - CRISIS_SERVICE_URL=http://crisis-service:3001
+      - NOTIFICATION_SERVICE_URL=http://notification-service:3002
+    depends_on:
+      - crisis-service
+      - notification-service
+
+  crisis-service:
+    build: ./backend/crisis-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - API_KEY=turk-interop-secret-key
+
+  notification-service:
+    build: ./backend/notification-service
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - api-gateway

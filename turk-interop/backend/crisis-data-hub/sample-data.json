@@ -1,0 +1,91 @@
+{
+  "description": "TURK Interop Crisis Data Hub — Örnek JSON veri formatı",
+
+  "create_crisis_body": {
+    "country": "TR",
+    "event_type": "earthquake",
+    "severity": "critical",
+    "affected_people": 125000,
+    "description": "Doğu Anadolu fay hattı depremi, 7.4 büyüklüğünde",
+    "reported_by": "AFAD"
+  },
+
+  "crisis_response": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "country": "TR",
+    "event_type": "earthquake",
+    "severity": "critical",
+    "affected_people": 125000,
+    "description": "Doğu Anadolu fay hattı depremi, 7.4 büyüklüğünde",
+    "timestamp": "2026-05-06T10:30:00.000Z",
+    "reported_by": "AFAD",
+    "status": "active"
+  },
+
+  "list_response": {
+    "total": 3,
+    "limit": 50,
+    "offset": 0,
+    "data": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "country": "TR",
+        "event_type": "earthquake",
+        "severity": "critical",
+        "affected_people": 125000,
+        "description": "Doğu Anadolu fay hattı depremi",
+        "timestamp": "2026-03-15T04:17:00.000Z",
+        "reported_by": "AFAD",
+        "status": "active"
+      },
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "country": "AZ",
+        "event_type": "flood",
+        "severity": "high",
+        "affected_people": 34000,
+        "description": "Kura nehri taşkını",
+        "timestamp": "2026-04-02T11:30:00.000Z",
+        "reported_by": "AZ-DFT",
+        "status": "active"
+      },
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440002",
+        "country": "KZ",
+        "event_type": "storm",
+        "severity": "medium",
+        "affected_people": 8200,
+        "description": "Kuzey bozkır fırtınası",
+        "timestamp": "2026-04-20T08:00:00.000Z",
+        "reported_by": "KZ-EM",
+        "status": "monitoring"
+      }
+    ]
+  },
+
+  "summary_response": {
+    "total_events": 3,
+    "countries": [
+      {
+        "country": "TR",
+        "total": 1,
+        "active": 1,
+        "affected_people": 125000,
+        "by_severity": { "critical": 1 }
+      },
+      {
+        "country": "AZ",
+        "total": 1,
+        "active": 1,
+        "affected_people": 34000,
+        "by_severity": { "high": 1 }
+      }
+    ]
+  },
+
+  "valid_values": {
+    "event_type": ["earthquake", "flood", "fire", "epidemic", "storm", "other"],
+    "severity": ["low", "medium", "high", "critical"],
+    "status": ["active", "monitoring", "resolved"]
+  }
+}

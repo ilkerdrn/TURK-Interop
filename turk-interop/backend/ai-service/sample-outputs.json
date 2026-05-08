@@ -1,0 +1,62 @@
+{
+  "description": "AI Service örnek çıktıları",
+
+  "POST /ai/report — örnek yanıt": {
+    "report": {
+      "title": "TURK Interop Aktif Kriz Koordinasyon Raporu",
+      "generated_at": "2026-05-06T04:45:00.000Z",
+      "summary": "Türkiye'de 7.7 büyüklüğünde deprem 1.2 milyon kişiyi etkiledi. Azerbaycan ve Kazakistan destek ekipleri hazır durumda. Acil kurtarma ve tıbbi müdahale öncelikli ihtiyaç.",
+      "critical_events": [
+        {
+          "country": "TR",
+          "event": "Malatya merkezli 7.7 büyüklüğünde deprem, 10km derinlik",
+          "urgency": "immediate",
+          "recommended_action": "Ağır kurtarma ekipleri ve mobil hastane birimleri bölgeye sevk edilmeli"
+        }
+      ],
+      "total_affected": 1200000,
+      "priority_needs": ["rescue", "medical", "shelter", "water"],
+      "coordination_note": "Azerbaycan USAR ekipleri 4 saat içinde bölgede olacak, karşılama ve lojistik koordinasyonu AFAD üstlenmeli"
+    },
+    "generated_at": "2026-05-06T04:45:01.123Z",
+    "source_events": 3,
+    "cached": false
+  },
+
+  "POST /ai/risk/:id — örnek yanıt": {
+    "analysis": {
+      "event_id": "a1b2c3d4-0001-0000-0000-000000000001",
+      "risk_level": "CRITICAL",
+      "risk_score": 91,
+      "primary_risks": [
+        {
+          "risk": "Artçı depremler",
+          "probability": "high",
+          "impact": "Hasarlı yapıların çökmesi, kurtarma ekiplerinin tehlikeye girmesi",
+          "mitigation": "Artçı deprem izleme sistemi kurulmalı, ekipler 72 saat boyunca uyarı protokolüyle çalışmalı"
+        },
+        {
+          "risk": "Salgın hastalık riski",
+          "probability": "medium",
+          "impact": "Yerinden edilmiş 95.000 kişinin toplu barınma alanlarında hijyen sorunu",
+          "mitigation": "Mobil sağlık ekipleri ve temiz su istasyonları 48 saat içinde kurulmalı"
+        },
+        {
+          "risk": "Ulaşım altyapısı çöküşü",
+          "probability": "high",
+          "impact": "Yardım malzemelerinin bölgeye ulaşamaması",
+          "mitigation": "Hava koridoru açılmalı, helikopter lojistiği önceliklendirilmeli"
+        }
+      ],
+      "secondary_risks": [
+        "Enerji altyapısı hasarı nedeniyle hastane kapasitesi düşüşü",
+        "Soğuk hava koşullarında barınaksız nüfus için hipotermi riski",
+        "İletişim altyapısı hasarı nedeniyle koordinasyon güçlüğü"
+      ],
+      "time_sensitivity": "İlk 72 saat kritik — enkaz altındaki hayatta kalanlar için altın pencere kapanmadan önce ağır kurtarma ekipleri sahada olmalı",
+      "cross_border_impact": "Deprem Suriye sınırına 180km mesafede, sınır ötesi nüfus hareketleri ve Suriye tarafında altyapı hasarı izlenmeli"
+    },
+    "analyzed_at": "2026-05-06T04:46:00.000Z",
+    "cached": false
+  }
+}
