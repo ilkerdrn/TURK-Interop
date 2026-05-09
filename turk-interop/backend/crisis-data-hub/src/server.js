@@ -9,6 +9,7 @@ const normalizeRoutes = require('./routes/normalize');
 const analysisRoutes  = require('./routes/analysis');
 const simulateRoutes  = require('./routes/simulate');
 const externalRoutes  = require('./routes/external');
+const reportRoutes    = require('./routes/report');
 
 const app  = express();
 const PORT = process.env.PORT || 4000;
@@ -26,6 +27,7 @@ app.use('/api/normalize', normalizeRoutes);
 app.use('/api/analysis',  analysisRoutes);
 app.use('/api/simulate',  simulateRoutes);
 app.use('/api/external',  externalRoutes);
+app.use('/api/report',    reportRoutes);
 
 // ── Health check ──────────────────────────────────────────────
 app.get('/health', (req, res) => {

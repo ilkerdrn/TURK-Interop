@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import client from '../api/client';
 import { SEVERITY, EVENT_TYPE } from '../utils/severity';
 import { RESOURCE_TR, PRIORITY_TR } from '../utils/tr';
+import ReportModal from './ReportModal';
 
 const PRIORITY_COLOR = {
   immediate: 'text-red-400 bg-red-500/10 border-red-500/30',
@@ -18,6 +19,7 @@ export default function ScenarioPanel() {
   const [selected,  setSelected]  = useState(null);
   const [loading,   setLoading]   = useState(true);
   const [error,     setError]     = useState(null);
+  const [showReport, setShowReport] = useState(false);
 
   useEffect(() => {
     client.get('/scenarios')
@@ -41,8 +43,7 @@ export default function ScenarioPanel() {
 
   return (
     <div className="space-y-4">
-      {/* Senaryo seçici */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      {/* Senaryo seçici */}      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {scenarios.map(s => {
           const sev = SEVERITY[s.severity] || SEVERITY.low;
           const et  = EVENT_TYPE[s.event_type] || EVENT_TYPE.other;
@@ -73,12 +74,17 @@ export default function ScenarioPanel() {
       </div>
 
       {/* Detay paneli */}
-      {active && <ScenarioDetail scenario={active} />}
+      {active && <ScenarioDetail scenario={active} onReport={() => setShowReport(true)} />}
+
+      {/* Rapor modal */}
+      {showReport && active && (
+        <ReportModal scenario={active} onClose={() => setShowReport(false)} />
+      )}
     </div>
   );
 }
 
-function ScenarioDetail({ scenario: s }) {
+function ScenarioDetail({ scenario: s, onReport }) {
   const sev = SEVERITY[s.severity] || SEVERITY.low;
   const et  = EVENT_TYPE[s.event_type] || EVENT_TYPE.other;
 
@@ -153,12 +159,12 @@ function ScenarioDetail({ scenario: s }) {
               <div key={i} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 border ${PRIORITY_COLOR[need.priority]}`}>
                 <span className="text-lg">{NEED_ICON[need.type] || '📦'}</span>
                 <div className="min-w-0">
-                  <div className="text-sm font-semibold capitalize">{need.type}</div>
+                  <div className="text-sm font-semibold capitalize">{RESOURCE_TR[need.type] || need.type}</div>
                   <div className="text-xs opacity-80 truncate">
                     {need.quantity.toLocaleString('tr-TR')} {need.unit}
                   </div>
                 </div>
-                <span className="ml-auto text-xs font-bold opacity-70 shrink-0">{need.priority}</span>
+                <span className="ml-auto text-xs font-bold opacity-70 shrink-0">{PRIORITY_TR[need.priority] || need.priority}</span>
               </div>
             ))}
           </div>
@@ -168,7 +174,14 @@ function ScenarioDetail({ scenario: s }) {
       {/* Footer */}
       <div className="px-5 py-3 border-t border-slate-700 flex items-center justify-between text-xs text-slate-500">
         <span>Raporlayan: <span className="text-slate-400 font-medium">{s.reported_by}</span></span>
-        <span>{new Date(s.timestamp).toLocaleString('tr-TR', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+        <div className="flex items-center gap-3">
+          <span>{new Date(s.timestamp).toLocaleString('tr-TR', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+          <button onClick={onReport}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+            style={{ background: 'rgba(2,132,199,0.15)', color: '#38bdf8', border: '1px solid rgba(2,132,199,0.3)' }}>
+            📄 Rapor Çıkar
+          </button>
+        </div>
       </div>
     </div>
   );
